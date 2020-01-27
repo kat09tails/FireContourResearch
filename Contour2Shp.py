@@ -5,7 +5,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import cv2 as cv
 import matplotlib.animation as animation
-from MP4Maker import MP4Maker
 from shapely.geometry import mapping, Point, MultiPoint, MultiPolygon, Polygon #LineString, MultiLineString
 import fiona
 import geopandas as gpd
@@ -90,7 +89,7 @@ class Contour2Shp:
                      points_given += 1
                      num_points = 0
                if(points_given < 3):
-                  pass
+                  pass 
                else:
                   polygon = Polygon([p.x, p.y] for p in points)
                   #polygon = polygon.simplify(0.001, False)
@@ -112,7 +111,8 @@ class Contour2Shp:
          shape.close()
       contour_images = np.asarray(contour_images)
       np.save("Applied_Images/Shape Files/contour.npy", contour_images)
-   ##---------------View Only from here on----------------------------
+      
+   ##---------------For Viewing Purposes Only from here on----------------------------
    ###################################################
    ##       Function: view_shape_files              ##
    ## Takes in multiple shape files to view.        ##
