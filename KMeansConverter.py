@@ -8,11 +8,11 @@ import rasterio as rst
 import matplotlib.pyplot as plt
 import cv2 as cv
 from scipy.ndimage import gaussian_filter
-from sklearn.metrics import silhouette_score as silhouette
-from sklearn.cluster import KMeans
-from sklearn.datasets import make_blobs
-from yellowbrick.cluster import KElbowVisualizer
-from yellowbrick.cluster import SilhouetteVisualizer
+# from sklearn.metrics import silhouette_score as silhouette
+# from sklearn.cluster import KMeans
+# from sklearn.datasets import make_blobs
+# from yellowbrick.cluster import KElbowVisualizer
+# from yellowbrick.cluster import SilhouetteVisualizer
 # from collections import Counter
 # import peakutils
 
@@ -36,33 +36,33 @@ class KMeansConverter:
       index_slash = image_path.rfind('/')
       return image_path[index_slash+1:len(image_path)]
 
-   def determine_clusters_elbow(self, image_path):
-      raster = rst.open(image_path)
-      band = raster.read(1)
-      blurred_image = gaussian_filter(band, sigma=5)
-      new_band = ((blurred_image.astype(np.float64)/np.max(blurred_image)) * 255).astype(np.uint8)
-      # float_image = np.float32(blurred_image)
-      num_data = new_band.shape[0]*new_band.shape[1]
-      new_band = new_band.reshape(num_data, 1)
-      model = KMeans()
-      visualizer = KElbowVisualizer(model, k=(1,20))
-      print(new_band.shape)
-      visualizer.fit(new_band[:100000])
-      visualizer.show()
+   # def determine_clusters_elbow(self, image_path):
+   #    raster = rst.open(image_path)
+   #    band = raster.read(1)
+   #    blurred_image = gaussian_filter(band, sigma=5)
+   #    new_band = ((blurred_image.astype(np.float64)/np.max(blurred_image)) * 255).astype(np.uint8)
+   #    # float_image = np.float32(blurred_image)
+   #    num_data = new_band.shape[0]*new_band.shape[1]
+   #    new_band = new_band.reshape(num_data, 1)
+   #    model = KMeans()
+   #    visualizer = KElbowVisualizer(model, k=(1,20))
+   #    print(new_band.shape)
+   #    visualizer.fit(new_band[:100000])
+   #    visualizer.show()
 
-   def determine_clusters_silhouette(self, image_path):
-      raster = rst.open(image_path)
-      band = raster.read(1)
-      blurred_image = gaussian_filter(band, sigma=5)
-      new_band = ((blurred_image.astype(np.float64)/np.max(blurred_image)) * 255).astype(np.uint8)
-      # float_image = np.float32(blurred_image)
-      num_data = new_band.shape[0]*new_band.shape[1]
-      new_band = new_band.reshape(num_data, 1)
-      model = KMeans(4)
-      visualizer = SilhouetteVisualizer(model)
-      print(new_band.shape)
-      visualizer.fit(new_band[:100000])
-      visualizer.show()
+   # def determine_clusters_silhouette(self, image_path):
+   #    raster = rst.open(image_path)
+   #    band = raster.read(1)
+   #    blurred_image = gaussian_filter(band, sigma=5)
+   #    new_band = ((blurred_image.astype(np.float64)/np.max(blurred_image)) * 255).astype(np.uint8)
+   #    # float_image = np.float32(blurred_image)
+   #    num_data = new_band.shape[0]*new_band.shape[1]
+   #    new_band = new_band.reshape(num_data, 1)
+   #    model = KMeans(4)
+   #    visualizer = SilhouetteVisualizer(model)
+   #    print(new_band.shape)
+   #    visualizer.fit(new_band[:100000])
+   #    visualizer.show()
 
 
    # Retrieves band four and applies 5 cluster k-means
@@ -72,8 +72,8 @@ class KMeansConverter:
       raster = rst.open(image_path)
       band = raster.read(1)
       meta = raster.profile
-      plt.imshow(band)
-      plt.show()
+      # plt.imshow(band)
+      # plt.show()
 
       image_array = []
       if(apply_max_accumulate):
@@ -88,8 +88,8 @@ class KMeansConverter:
          self.previous_image = np.copy(max_accum[1])
          band = np.copy(max_accum[1])
 
-         plt.imshow(band)
-         plt.show()       
+         # plt.imshow(band)
+         # plt.show()       
 
 
       # band = ((band.astype(np.float64)/np.max(band)) * 255).astype(np.uint8)
