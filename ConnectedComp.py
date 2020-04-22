@@ -72,28 +72,7 @@ class ConnectedComp:
       print("Saving Meta...")
       np.save(save_directory + "_meta.npy", meta)
 
-   ##---------------For Viewing Purposes Only from here on----------------------------
-   def create_connected_components_vid(self, path, save_path):
-      print(save_path)
-      print(path)
-      ccarray = np.load(path)
-      images = []
-      fig = plt.figure()
-      for image in ccarray:
-         plt.title("Connected Component")
-         for i in range(1, 50):
-            image[image == i] = 260 - (i * 5)
-         images.append([plt.imshow(image, cmap="Greys")])#, cmap='nipy_spectral')])
-      images = np.asarray(images)
-      print("Creating Animation")
-      ani = animation.ArtistAnimation(fig, images, interval=50, blit=True,
-                                    repeat_delay=1000)
-      print("Saving Animation")
-      save_name = save_path + ".mp4"
-      ani.save(save_name)
-
 def main():
-   plt.rcParams['animation.ffmpeg_path'] = '/usr/bin/ffmpeg' # I need this for some reason?? Take out if it causes issues.
    print("Notice: You can run all processes at once using Main.py. If you run scripts individually please note that this script is intended to run after KMeansConverter.py. If it is executed after a different script it will not work.")
    cc = ConnectedComp()
    if len(sys.argv) < 2:
@@ -102,13 +81,8 @@ def main():
       cc.apply_connected_comp(sys.argv[2], sys.argv[3], sys.argv[4])
    elif sys.argv[1].lower() == "cc" and len(sys.argv) != 5:
       print("To apply connected components to images please enter: cc image_directory_to_apply save_directory number_components")
-   elif sys.argv[1].lower() == "vid" and len(sys.argv) == 4:
-      cc.create_connected_components_vid(sys.argv[2], sys.argv[3])
-   elif sys.argv[1].lower() == "vid" and len(sys.argv) != 4:
-      print("To create a connected components video please enter: vid images_directory save_directory")
    else:
       print("To apply connected components to images please enter: cc image_directory_to_apply save_directory")
-      print("To create a connected components video please enter: vid images_directory save_directory")
 
 if __name__ == "__main__":
    main()
